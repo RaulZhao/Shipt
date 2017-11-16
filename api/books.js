@@ -4,7 +4,7 @@ const Books = require('../model/book');
 
 const addBook = function(req, res) {
   const newBook = Books({
-    title: "aa",
+    title: "aaa",
     url: "bb",
     author: "cc",
     num_comments: "123",
