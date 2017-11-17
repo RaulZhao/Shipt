@@ -7,7 +7,7 @@ const bookSchema = new Schema({
   url: String,
   author: String,
   num_comments: Number,
-  pints: Number,
+  points: Number,
   objectID: Number
 }, { collection: 'book_store' });
 
