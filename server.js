@@ -10,6 +10,14 @@ function start() {
   app.set('view engine', 'ejs');
   app.set('title', 'Raul API Server');
 
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", 'http://localhost:3008');
+    res.header("Access-Control-Allow-Headers", 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header("Access-Control-Allow-Methods", 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+  });
+
   app.use((req, res, next) => {
     console.log("Time: ", Date());
     res.set("X-Frame_Options", "SAMEORIGIN");
