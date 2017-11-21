@@ -11,6 +11,7 @@ const createBook = function(req, res) {
   if (newBook) {
     const book = Books(newBook);
 
+    console.log(`Try to create book: ${newBook}`);
     Books.find({objectID: newBook.objectID}, function(err, books) {
       if (err) throw err;
       if (books.length > 0) {
@@ -54,9 +55,10 @@ const findByObjectId = function(req, res) {
 const deleteByObjectId = function(req, res) {
   const { objectId } = req.params;
 
+  console.log(`Try to delete book with ID: ${objectId}`);
   Books.remove({objectID: objectId}, (err, dBook) => {
     if (err) throw err;
-    res.header('Access-Control-Allow-Origin', '*');
+
     res.json({
       state: 'success'
     });
