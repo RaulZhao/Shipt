@@ -14,7 +14,11 @@ const productSchema = new Schema({
   price: Number,
   weight: Number,
   category: {
-    id: {type: Number, index: true},
+    id: {
+      type: Number,
+      index: true,
+      required: true
+    },
     name: String
   },
   createTime: {
@@ -27,7 +31,7 @@ const productSchema = new Schema({
 counter({ _id: 'productId' }).save();
 productSchema.pre('save', function(next) {
   const doc = this;
-  counter.findByIdAndUpdate({_id: 'productId'}, {$inc: { seq: 1}}, {new: true}, function(error, data) {
+  counter.findByIdAndUpdate({_id: 'productId'}, {$inc: { seq: 1}}, {new: true}, (error, data) => {
     if(error) return next(error);
 
     if (doc.id == undefined) {

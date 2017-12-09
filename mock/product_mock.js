@@ -1,13 +1,12 @@
 const ProductModel = require('../model/product');
 
 const dummyData = {
-  id: 2,
   name: "Orange",
   price: null,
   weight: 2.7,
   category: {
-    id: 20,
-    name: "grocery"
+    id: 2,
+    name: "Category_B"
   }
 }
 

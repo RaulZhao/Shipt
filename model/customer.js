@@ -21,7 +21,7 @@ const customerSchema = new Schema({
 counter({ _id: 'customerId' }).save();
 customerSchema.pre('save', function(next) {
   const doc = this;
-  counter.findByIdAndUpdate({_id: 'customerId'}, {$inc: { seq: 1}}, {new: true}, function(error, data) {
+  counter.findByIdAndUpdate({_id: 'customerId'}, {$inc: { seq: 1}}, {new: true}, (error, data) => {
     if(error) return next(error);
 
     if (doc.id == undefined) {

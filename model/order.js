@@ -27,7 +27,7 @@ const orderSchema = new Schema({
 counter({ _id: 'orderId' }).save();
 orderSchema.pre('save', function(next) {
   const doc = this;
-  counter.findByIdAndUpdate({_id: 'orderId'}, {$inc: { seq: 1}}, {new: true}, function(error, data) {
+  counter.findByIdAndUpdate({_id: 'orderId'}, {$inc: { seq: 1}}, {new: true}, (error, data) => {
     if(error) return next(error);
 
     if (doc.id == undefined) {
