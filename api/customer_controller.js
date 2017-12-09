@@ -4,22 +4,6 @@ const app = express();
 const router = express.Router();
 const CustomerModel = require('../model/customer');
 
-const init = function() {
-  const dummyData = {
-    first_name: "San",
-    last_name: "Zhang",
-    email: "aaa.bb@gmail.com",
-    phone: "8888888",
-    address: "1234 Hope Drive"
-  }
-  CustomerModel.create(dummyData).then(function(msg) {
-    console.log("&&&&&&"+msg);
-  }).catch(function(msg) {
-    console.log("%%%%%%"+msg);
-  });
-}
-init();
-
 const error_cb = function(res) {
   res.sendStatus(500);
 };

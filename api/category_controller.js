@@ -4,19 +4,6 @@ const app = express();
 const router = express.Router();
 const CategoryModel = require('../model/category');
 
-const init = function() {
-  const dummyData = {
-    id: 1,
-    name: "Category_A"
-  }
-  CategoryModel.create(dummyData).then(function(msg) {
-    console.log("&&&&&&"+msg);
-  }).catch(function(msg) {
-    console.log("%%%%%%"+msg);
-  });
-}
-// init();
-
 const error_cb = function(res) {
   res.sendStatus(500);
 };

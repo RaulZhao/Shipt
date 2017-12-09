@@ -4,21 +4,6 @@ const app = express();
 const router = express.Router();
 const OrderModel = require('../model/order');
 
-const init = function() {
-  const dummyData = {
-    customer_id: 1,
-    customer_name: "Zhang",
-    products: [1,2],
-    shipping_status: "pending"
-  }
-  OrderModel.create(dummyData).then(function(msg) {
-    console.log("&&&&&&"+msg);
-  }).catch(function(msg) {
-    console.log("%%%%%%"+msg);
-  });
-}
-init();
-
 const error_cb = function(res) {
   res.sendStatus(500);
 };

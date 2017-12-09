@@ -3,26 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const router = express.Router();
 const ProductModel = require('../model/product');
-
-const init = function() {
-  const dummyData = {
-    id: 2,
-    name: "Orange",
-    price: null,
-    weight: 2.7,
-    category: {
-      id: 20,
-      name: "grocery"
-    },
-    shipping_status: "pending"
-  }
-  ProductModel.create(dummyData).then(function(msg) {
-    console.log("&&&&&&"+msg);
-  }).catch(function(msg) {
-    console.log("%%%%%%"+msg);
-  });
-}
-init();
+const test = require('../mock/test');
 
 const error_cb = function(res) {
   res.sendStatus(500);
@@ -85,6 +66,12 @@ const deleteProductById = function(req, res) {
     throw err;
   });
 };
+
+// Using mock data to init MongoDB
+// test.category_mock();
+// test.customer_mock();
+// test.product_mock();
+// test.order_mock();
 
 
 router.use(bodyParser.json());
