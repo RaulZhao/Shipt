@@ -3,31 +3,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const counter = require('./counter');
 
-const productSchema = new Schema({
+const customerSchema = new Schema({
   id: {
     type: Number,
     index: true,
     unique: true,
     dropDups: true
   },
-  name: String,
-  price: Number,
-  weight: Number,
-  category: {
-    id: {type: Number, index: true},
-    name: String
-  },
-  createTime: {
-    type: Date,
-    default: new Date()
-  }
-}, { collection: 'product_store' });
+  first_name: String,
+  last_name: String,
+  email: String,
+  phone: String,
+  address: String
+}, { collection: 'customer_store' });
 
 // To implement auto_increment 'id' property
-counter({ _id: 'productId' }).save();
-productSchema.pre('save', function(next) {
+counter({ _id: 'customerId' }).save();
+customerSchema.pre('save', function(next) {
   const doc = this;
-  counter.findByIdAndUpdate({_id: 'productId'}, {$inc: { seq: 1}}, {new: true}, function(error, data) {
+  counter.findByIdAndUpdate({_id: 'customerId'}, {$inc: { seq: 1}}, {new: true}, function(error, data) {
     if(error) return next(error);
 
     if (doc.id == undefined) {
@@ -37,44 +31,44 @@ productSchema.pre('save', function(next) {
   });
 });
 
-const ProductStore = mongoose.model('product', productSchema);
+const CustomerStore = mongoose.model('customer', customerSchema);
 
-const ProductModel = {
+const customerModel = {
   create(data) {
     return new Promise((resolve, reject) => {
-      ProductStore(data).save(function(err) {
+      CustomerStore(data).save(function(err) {
         if (err) {
           reject(err);
         } else {
           resolve('success');
-          console.log(`New Product ${data.name} is created!`);
+          console.log(`New customer ${data.first_name} ${data.last_name} is created!`);
         }
       });
     });
   },
   getAll() {
     return new Promise((resolve, reject) => {
-      ProductStore.find({}, (err, products) => {
+      CustomerStore.find({}, (err, customers) => {
         if (err) {
           reject(err);
         }
-        resolve(products);
+        resolve(customers);
       });
     })
   },
   getById(id) {
     return new Promise((resolve, reject) => {
-      ProductStore.findOne({id}, (err, product) => {
+      CustomerStore.findOne({id}, (err, customer) => {
         if (err) {
           reject(err);
         }
-        resolve(product);
+        resolve(customer);
       });
     })
   },
   deleteById(id) {
     return new Promise((resolve, reject) => {
-      ProductStore.remove({id}, (err) => {
+      CustomerStore.remove({id}, (err) => {
         if (err) {
           reject(err);
         }
@@ -84,4 +78,4 @@ const ProductModel = {
   }
 }
 
-module.exports = ProductModel;
+module.exports = customerModel;

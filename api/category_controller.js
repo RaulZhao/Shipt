@@ -2,41 +2,31 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const router = express.Router();
-const ProductModel = require('../model/product');
+const CategoryModel = require('../model/category');
 
 const init = function() {
   const dummyData = {
     id: 1,
-    name: "Apple",
-    price: 3,
-    weight: 2.7,
-    category_id: 20,
-    shipping: "pending"
+    name: "Category_A"
   }
-  ProductModel.create(dummyData).then(function(msg) {
+  CategoryModel.create(dummyData).then(function(msg) {
     console.log("&&&&&&"+msg);
   }).catch(function(msg) {
     console.log("%%%%%%"+msg);
   });
-
-  ProductModel.getAll().then((data) => {
-    console.log(data);
-  }).catch((err) => {
-    throw err;
-  });
 }
-init();
+// init();
 
 const error_cb = function(res) {
   res.sendStatus(500);
 };
 
-const createProduct = function(req, res) {
+const createCategory = function(req, res) {
   res.header('Access-Control-Allow-Origin', '*');
-  const newProduct = req.body;
+  const newCategory = req.body;
 
-  if (newProduct) {
-    ProductModel.create(newProduct).then(function(msg) {
+  if (newCategory) {
+    CategoryModel.create(newCategory).then(function(msg) {
       res.send({state: "success"});
     }).catch(function(message) {
       res.status(500).send({
@@ -49,8 +39,8 @@ const createProduct = function(req, res) {
   }
 }
 
-const getAllProducts = function(req, res) {
-  ProductModel.getAll().then((data) => {
+const getAllCategorys = function(req, res) {
+  CategoryModel.getAll().then((data) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.json(data);
   }).catch((err) => {
@@ -58,13 +48,13 @@ const getAllProducts = function(req, res) {
   });
 };
 
-const findProductById = function(req, res) {
+const findCategoryById = function(req, res) {
   const { id } = req.params;
 
   if (!id) {
     error_cb(res);
   }
-  ProductModel.getById(id).then((data) => {
+  CategoryModel.getById(id).then((data) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.json(data);
   }).catch((err) => {
@@ -72,14 +62,14 @@ const findProductById = function(req, res) {
   });
 };
 
-const deleteProductById = function(req, res) {
+const deleteCategoryById = function(req, res) {
   const { id } = req.params;
 
   if (!id) {
     error_cb(res);
   }
-  console.log(`Try to delete product with ID: ${id}`);
-  ProductModel.deleteById(id).then(() => {
+  console.log(`Try to delete Category with ID: ${id}`);
+  CategoryModel.deleteById(id).then(() => {
     res.header('Access-Control-Allow-Origin', '*');
     res.json({
       state: 'success'
@@ -93,9 +83,9 @@ const deleteProductById = function(req, res) {
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-router.get('/', getAllProducts);
-router.get('/:id', findProductById);
-router.post('/', createProduct);
-router.delete('/:id', deleteProductById);
+router.get('/', getAllCategorys);
+router.get('/:id', findCategoryById);
+router.post('/', createCategory);
+router.delete('/:id', deleteCategoryById);
 
 module.exports = router;

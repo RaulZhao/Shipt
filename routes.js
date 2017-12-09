@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const licenseController = require('./api/license'),
-      userController = require('./api/user'),
-      productController = require('./api/products');
+const customerController = require('./api/customer_controller');
+const productController = require('./api/product_controller');
+const categoryController = require('./api/category_controller');
+const orderController = require('./api/order_controller');
 
-router.use('/license', licenseController);
-router.use('/user', userController);
+router.use('/customers', customerController);
 router.use('/products', productController);
+router.use('/categories', categoryController);
+router.use('/orders', orderController);
 
 router.get('/', (req, res) => {
   res.send('API Home Page');
