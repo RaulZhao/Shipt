@@ -5,10 +5,10 @@
 ### DB: Mongo
 
 ### Restful API:
-  http://localhost:8888/api/products
-  http://localhost:8888/api/categories
-  http://localhost:8888/api/orders
-  http://localhost:8888/api/customers
+  http://localhost:8888/api/products \n
+  http://localhost:8888/api/categories \n
+  http://localhost:8888/api/orders \n
+  http://localhost:8888/api/customers 
 
 ### Others
   1. Implement auto_increment id for nosql database
